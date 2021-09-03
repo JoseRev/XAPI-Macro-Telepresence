@@ -5,6 +5,23 @@ let webURI; // webURI = urls[spinner_value] => e.g. connext@m.webex.com
 let spinner_value=0;
 let text_XXX;
 
+const KEYBOARD_TYPES = {
+  NUMERIC: 'Numeric',
+  SINGLELINE: 'SingleLine',
+  PASSWORD: 'Password',
+  PIN: 'PIN',
+};   
+  
+const CALL_TYPES = {
+      AUDIO     :   'Audio'
+    , VIDEO     :   'Video'
+}     
+
+//const MEETING_ID = 'meetingID';
+
+/* This will be the Panel/Widget ID you are using in the UI Extension */
+const INROOMCONTROL_AUDIOCONTROL_PANELID = 'JoinMeetingPanel'; 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////// READ FROM MEMORY /////////////////////////////////////////////////////////
 import { mem } from './Memory_Functions'; mem.localScript = module.name;
@@ -112,37 +129,10 @@ xapi.event.on('UserInterface Extensions Widget Action', (event) => {
          del_URI();
     }
 });
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////// SIP Call Function /////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-const KEYBOARD_TYPES = {
-  NUMERIC: 'Numeric',
-  SINGLELINE: 'SingleLine',
-  PASSWORD: 'Password',
-  PIN: 'PIN',
-};   
-
-const CALL_TYPES = {
-      AUDIO     :   'Audio'
-    , VIDEO     :   'Video'
-}     
-
-const MEETING_ID = 'meetingID';
-
-/* This will be the Panel/Widget ID you are using in the UI Extension */
-const INROOMCONTROL_AUDIOCONTROL_PANELID = 'JoinMeetingPanel'; 
-
-/* Use this one if you want to limit calls to numeric only. In this example, require number to be between 3 and 10 digits. */
-const REGEXP_NUMERICDIALER =  /^(.{3,11})$/; 
-
-
-//////// END to define variables for call
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// SIP Call Function //////////////////////////////////////////////////////////////////////////
 
 function getMeetingID(text, value = ''){
 
@@ -159,14 +149,10 @@ else {
     Text: '(3 a 11 digitos para completar la llamada) <p>' + text_XXX + webURI,
     InputText: value,
     SubmitText: "Join",
-    //CancelText: "Join",
-    FeedbackId: MEETING_ID,
- //   InputType: 'Numeric',
-    //KeyboardState: 'Open',
+    FeedbackId: "entered_meeting",
     })
   .catch((error) => console.error(error));
 }
-
 
 /* This is the listener for the in-room control panel button that will trigger the dial panel to appear */
 xapi.event.on('UserInterface Extensions Widget Action', (event) => {
@@ -179,11 +165,10 @@ xapi.event.on('UserInterface Extensions Widget Action', (event) => {
 /* Event listener for the dial pad being posted */
 xapi.Event.UserInterface.Message.TextInput.Response.on((event) => {
     switch(event.FeedbackId){
-        case MEETING_ID:
+        case "entered_meeting":
           /* Change this to whatever filter you want to check for validity */
 
           const meetingID = event.Text;
-//			    //const meetingID = match[1];
           
             //const at = meetingDomain.startsWith('@') ? '' : '@';
             var Dialed_Number =  meetingID + "." + webURI;  //.xxxx@yyyy.com;
@@ -193,7 +178,8 @@ xapi.Event.UserInterface.Message.TextInput.Response.on((event) => {
                         
             console.log(Dialed_Number);
             xapi.command("dial", {Number: Dialed_Number, Protocol: 'SIP', CallType: CALL_TYPES.VIDEO}).catch((error) => { console.error(error); });
-
           break;
-    }  
+    }    
 });  
+
+
