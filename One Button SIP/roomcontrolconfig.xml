@@ -2,16 +2,6 @@
   <Version>1.7</Version>
   <Panel>
     <Order>1</Order>
-    <PanelId>callmeeting</PanelId>
-    <Origin>local</Origin>
-    <Type>Home</Type>
-    <Icon>Camera</Icon>
-    <Color>#07C1E4</Color>
-    <Name>Join Conference</Name>
-    <ActivityType>Custom</ActivityType>
-  </Panel>
-  <Panel>
-    <Order>2</Order>
     <PanelId>pannel</PanelId>
     <Origin>local</Origin>
     <Type>Home</Type>
@@ -55,46 +45,6 @@
       </Row>
       <PageId>speed_dial</PageId>
       <Options>hideRowNames=1</Options>
-    </Page>
-  </Panel>
-  <Panel>
-    <Order>3</Order>
-    <PanelId>webapp-app-Webex</PanelId>
-    <Origin>local</Origin>
-    <Type>Global</Type>
-    <Icon>Lightbulb</Icon>
-    <Name>Webex</Name>
-    <ActivityType>WebApp</ActivityType>
-    <ActivityData>webex.com</ActivityData>
-  </Panel>
-  <Panel>
-    <Order>4</Order>
-    <PanelId>webapp-manager</PanelId>
-    <Origin>local</Origin>
-    <Type>Global</Type>
-    <Icon>Language</Icon>
-    <Color>#07C1E4</Color>
-    <Name>Web apps</Name>
-    <ActivityType>Custom</ActivityType>
-    <Page>
-      <Name>Manage web apps</Name>
-      <Row>
-        <Name>Add web app</Name>
-        <Widget>
-          <WidgetId>webapp-add-button</WidgetId>
-          <Type>Button</Type>
-          <Options>size=1;icon=plus</Options>
-        </Widget>
-      </Row>
-      <Row>
-        <Name>webex.com</Name>
-        <Widget>
-          <WidgetId>webapp-delete-webapp-app-Webex</WidgetId>
-          <Type>Button</Type>
-          <Options>size=1;icon=end</Options>
-        </Widget>
-      </Row>
-      <Options/>
     </Page>
   </Panel>
 </Extensions>
