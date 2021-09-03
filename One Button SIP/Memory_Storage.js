@@ -4,9 +4,9 @@ var memory = {
     "myMacro": {
         "VAR1": "TIFON"
     },
-    "./Videoconference3rd_Pty": {
+    "./SIP_BUTTON": {
         "URIs": [
-            "148393"
+            "cisco@cisco.com"
         ]
     }
 }
