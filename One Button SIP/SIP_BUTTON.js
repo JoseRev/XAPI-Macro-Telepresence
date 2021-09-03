@@ -54,15 +54,19 @@ function add_URI(text, value = ''){
 }
 //Si se selecciono agregar:
 xapi.event.on('UserInterface Message TextInput Response', (event) => {
+
   if (event.FeedbackId === 'add URI') {
+    // event.Text tiene la infomacion de la nueva URI tecleada;
     console.log('Agregando: ' + event.Text, event.FeedbackId);
-//    nuevaURI=event.Text;
+
     if (event.Text.search('@') == -1){
+      // se agrega arroba si el usuario no lo ingresó
       nuevaURI='@'+event.Text
     }
     else{
       nuevaURI=event.Text
     }
+    // Se adiciona a la memoria y a la variable local "urls", la nueva direccion URI ingresada
     urls.push(nuevaURI);
     mem.write('URIs', urls)
   }
@@ -71,7 +75,7 @@ xapi.event.on('UserInterface Message TextInput Response', (event) => {
 xapi.event.on('UserInterface Extensions Widget Action', (event) => {
     if ((event.WidgetId === 'add') && (event.Type === 'clicked')){
          add_URI();
-         //console.log(nuevaURI)
+         
     }
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
